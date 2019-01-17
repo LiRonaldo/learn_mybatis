@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yuxiang.li.dao.UserDao">
+    <select id="findUserById" resultType="com.yuxiang.li.entity.User">
+           select u.id,u.name,s.grade "grade.grade" from user u left join class s on u.classId = s.id
+        </select>
+    <insert id="insertUser" parameterType="com.yuxiang.li.entity.User">
+        insert into User(id,password,name, age, deleteFlag)
+        values(#{id},#{password}, #{name},#{age}, #{deleteFlag})
+        <selectKey resultType="int" keyProperty="id" order="AFTER" >
+            select  LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="findAllUsers" resultType="com.yuxiang.li.entity.User">
+        select * from user
+    </select>
+
+</mapper>
